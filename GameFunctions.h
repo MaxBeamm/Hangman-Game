@@ -3,4 +3,5 @@
 #include <string>
 #include <iostream>
 
-void buildGame();
+std::string buildGame();
+void intro(std::string secretWord);
