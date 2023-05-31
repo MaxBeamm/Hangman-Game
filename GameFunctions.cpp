@@ -6,6 +6,8 @@ using std::cout;
 
 constexpr int INTRO_TIMER{ 6 };
 constexpr int INTRO_WIDTH{ 52 };
+
+//Hangman display states
 constexpr std::array<std::string_view, 7> displayState{
   "  + -- - +\n"
   "  |   |\n"
@@ -63,6 +65,8 @@ constexpr std::array<std::string_view, 7> displayState{
   "      |\n"
   "======== = "
 };
+
+//picks one of the words from the list randomly and returns it as the secret word
 static std::string getWord() {
 	std::vector<std::string> wordList = { "Mystery", "Pumpkin", "Dolphin", "Bicycle", "Cupcake", "Pirate", "Caramel",
 										  "Rainbow", "Treasure", "Lantern", "Whisper", "Chocolate", "Forest", "Adventure",
@@ -78,6 +82,7 @@ static std::string getWord() {
 	return wordList[chooseIndex];
 }
 
+//Initializes the game and shows the beginning credits if user wants to continue playing it will return the secret word using getWord()
 std::string buildGame() {
 	system("CLS");
 
@@ -116,10 +121,6 @@ void intro(std::string_view secretWord) {
 
 }
 
-//void updateWordStatus(std::string& secretWord) {
-	
-//}
-
 //Refreshes and loads in updated information and hangman stage
 void loadState(std::string wordStatus, int numWrong) {
 	system("CLS");
@@ -136,6 +137,7 @@ void loadState(std::string wordStatus, int numWrong) {
 	
 }
 
+//Updates numWrong and secretWord to reflect the result of new user guess
 void updateState(std::string& wordStatus, int& numWrong, std::string_view secretWord_v, char guess) {
 	bool wrongGuess = true;
 	for (int i = 0; i < secretWord_v.size(); i++) {
@@ -144,11 +146,7 @@ void updateState(std::string& wordStatus, int& numWrong, std::string_view secret
 			wrongGuess = false;
 		}
 	}
-	if (wrongGuess) {
-		cout << "Sorry! The word does not contain a '" << guess << "'.";
+	if (wrongGuess)
 		numWrong++;
-	}
 }
-
-//void drawHangman(wrongAttempts)
 
