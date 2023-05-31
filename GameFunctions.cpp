@@ -6,7 +6,63 @@ using std::cout;
 
 constexpr int INTRO_TIMER{ 6 };
 constexpr int INTRO_WIDTH{ 52 };
+constexpr std::array<std::string_view, 7> displayState{
+  "  + -- - +\n"
+  "  |   |\n"
+  "      |\n"
+  "      |\n"
+  "      |\n"
+  "      |\n"
+  "======== = ",
 
+  "  + -- - +\n"
+  "  |   |\n"
+  "  O   |\n"
+  "      |\n"
+  "      |\n"
+  "      |\n"
+  "======== = ",
+
+  "  + -- - +\n"
+  "  |   |\n"
+  "  O   |\n"
+  "  |   |\n"
+  "      |\n"
+  "      |\n"
+  "======== = ",
+
+  "  + -- - +\n"
+  "  |   |\n"
+  "  O   |\n"
+  " /|   |\n"
+  "      |\n"
+  "      |\n"
+  "======== = ",
+
+  "  + -- - +\n"
+  "  |   |\n"
+  "  O   |\n"
+  " /|\\  |\n"
+  "      |\n"
+  "      |\n"
+  "======== = ",
+
+  "  + -- - +\n"
+  "  |   |\n"
+  "  O   |\n"
+  " /|\\  |\n"
+  " /    |\n"
+  "      |\n"
+  "======== = ",
+
+  "  + -- - +\n"
+  "  |   |\n"
+  "  O   |\n"
+  " /|\\  |\n"
+  " / \\  |\n"
+  "      |\n"
+  "======== = "
+};
 static std::string getWord() {
 	std::vector<std::string> wordList = { "Mystery", "Pumpkin", "Dolphin", "Bicycle", "Cupcake", "Pirate", "Caramel",
 										  "Rainbow", "Treasure", "Lantern", "Whisper", "Chocolate", "Forest", "Adventure",
@@ -41,7 +97,7 @@ std::string buildGame() {
 
 }
 
-void intro(std::string secretWord) {
+void intro(std::string_view secretWord) {
 	system("CLS");
 
 	static int seconds{ INTRO_TIMER };
@@ -55,7 +111,44 @@ void intro(std::string secretWord) {
 	for (int i = 0; i < secretWord.length(); i++) 
 		cout << "_ ";
 
-	cout << "\n                          " << seconds;
+	cout << "\n              Your word is " << secretWord.length() << " words long.";
+	cout << "\n\n                          " << seconds;
 
 }
+
+//void updateWordStatus(std::string& secretWord) {
+	
+//}
+
+//Refreshes and loads in updated information and hangman stage
+void loadState(std::string wordStatus, int numWrong) {
+	system("CLS");
+	cout << displayState[numWrong];
+	cout << "\n\n";
+	for (int i = 0; i < wordStatus.size(); i++) {
+		if (wordStatus[i] == '*') {
+			cout << "_ ";
+		}
+		else {
+			cout << wordStatus[i] << " ";
+		}
+	}
+	
+}
+
+void updateState(std::string& wordStatus, int& numWrong, std::string_view secretWord_v, char guess) {
+	bool wrongGuess = true;
+	for (int i = 0; i < secretWord_v.size(); i++) {
+		if (guess == secretWord_v[i]) {
+			wordStatus[i] = guess;
+			wrongGuess = false;
+		}
+	}
+	if (wrongGuess) {
+		cout << "Sorry! The word does not contain a '" << guess << "'.";
+		numWrong++;
+	}
+}
+
+//void drawHangman(wrongAttempts)
 
