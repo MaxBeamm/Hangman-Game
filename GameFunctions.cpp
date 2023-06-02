@@ -4,7 +4,6 @@
 
 using std::cout;
 
-constexpr int INTRO_TIMER{ 6 };
 constexpr int INTRO_WIDTH{ 52 };
 
 //Hangman display states
@@ -102,11 +101,10 @@ std::string buildGame() {
 
 }
 
-void intro(std::string_view secretWord) {
+void intro(std::string_view secretWord, int& timer) {
 	system("CLS");
 
-	static int seconds{ INTRO_TIMER };
-	seconds--;
+	timer--;
 
 	cout << LINES << LINES << LINES << "\n";
 	cout << "                    Your word is\n";
@@ -117,7 +115,7 @@ void intro(std::string_view secretWord) {
 		cout << "_ ";
 
 	cout << "\n              Your word is " << secretWord.length() << " words long.";
-	cout << "\n\n                          " << seconds;
+	cout << "\n\n                          " << timer;
 
 }
 

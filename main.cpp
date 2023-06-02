@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <conio.h>
 
+constexpr int INTRO_TIMER{ 6 };
+
 
 int main() {
 	//Max guesses before hangman is completely drawn is 10
@@ -25,8 +27,9 @@ int main() {
 
 
 		//Starts and loads in intro with countdown timer where word length is displayed to user
+		int timer{ INTRO_TIMER };
 		for (int i = 5; i > 0; i--) {
-			intro(secretWord_v);
+			intro(secretWord_v, timer);
 			Sleep(1500);
 		}
 

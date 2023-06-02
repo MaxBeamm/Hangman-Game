@@ -7,7 +7,7 @@
 
 std::string buildGame();
 
-void intro(std::string_view secretWord);
+void intro(std::string_view secretWord, int& timer);
 
 void loadState(std::string wordStatus, int numWrong);
 
